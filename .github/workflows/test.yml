@@ -1,3 +1,4 @@
+# .github/workflows/test.yml
 name: Run Playwright Tests
 
 on:
@@ -24,6 +25,16 @@ jobs:
       # Install dependencies
       - name: Install dependencies
         run: npm install
+
+      # Start the application
+      - name: Start the application
+        run: npm run dev &
+        env:
+          BASE_URL: ${{ secrets.BASE_URL }} # Use the secret here
+
+      # Wait for the application to be ready (adjust the timeout as necessary)
+      - name: Wait for application
+        run: sleep 10 # Adjust this value based on how long your app takes to start
 
       # Run tests in headless mode
       - name: Run Playwright tests
