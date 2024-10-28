@@ -13,31 +13,33 @@ jobs:
 
     steps:
       # Checkout the code
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v3
 
-      # Set up Node.js
-      - name: Set up Node.js
+      # Set up Node.js (specifying version 20)
+      - name: Set Up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18' # or another version you're using
+          node-version: '20'
 
       # Install dependencies
-      - name: Install dependencies
+      - name: Install Dependencies
         run: npm install
 
-      # Start the application
-      - name: Start the application
-        run: npm run dev &
-        env:
-          BASE_URL: ${{ secrets.BASE_URL }} # Use the secret here
+      # Copy .env.example to .env
+      - name: Create .env File
+        run: cp .env.example .env
 
-      # Wait for the application to be ready (adjust the timeout as necessary)
-      - name: Wait for application
-        run: sleep 10 # Adjust this value based on how long your app takes to start
+      # Start the application
+      - name: Start Application
+        run: |
+          npm run dev & 
+          sleep 10 # Wait for the application to start
+        env:
+          BASE_URL: ${{ secrets.BASE_URL }}
 
       # Run tests in headless mode
-      - name: Run Playwright tests
+      - name: Run Playwright Tests
         run: npm run test
 
       # Optionally: Upload Playwright test artifacts (screenshots, videos, etc.) if tests fail
