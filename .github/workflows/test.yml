@@ -1,0 +1,41 @@
+name: Run Playwright Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the code
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18' # or another version you're using
+
+      # Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Run tests in headless mode
+      - name: Run Playwright tests
+        run: npm run test
+
+      # Optionally: Upload Playwright test artifacts (screenshots, videos, etc.) if tests fail
+      - name: Upload Playwright Artifacts
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: playwright-artifacts
+          path: |
+            test-results/**/*.png
+            test-results/**/*.mp4
+            test-results/**/*.json
