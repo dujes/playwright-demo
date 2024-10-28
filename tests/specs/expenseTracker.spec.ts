@@ -10,5 +10,5 @@ test('Should add and check expense within history list', async ({ page }) => {
   await expenseTracker.checkDefaultState();
   await expenseTracker.addExpenseAmount();
   await expenseTracker.addIncomeAmount();
-  await expenseTracker.verifyBalance()
+  await expenseTracker.verifyBalanceValue()
 });

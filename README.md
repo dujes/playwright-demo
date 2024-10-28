@@ -28,4 +28,16 @@ npm run dev
 npm run build
 ```
 
+### Run Tests in Headless Mode
+
+```sh
+npm run test
+```
+
+### Run Tests in UI Mode
+
+```sh
+npm run test:ui
+```
+
 #### License MIT
