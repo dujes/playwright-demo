@@ -46,7 +46,7 @@ export class ExpenseTracker {
   /**
    * Add a new expense transaction.
    */
-  async addExpenseAmount() {
+  addExpenseAmount() {
     const amount = faker.number.int({ min: 1, max: 1000 });
     const text = faker.commerce.productName();
     return this.addTransaction(text, `-${amount}`);
@@ -55,7 +55,7 @@ export class ExpenseTracker {
   /**
    * Add a new income transaction.
    */
-  async addIncomeAmount() {
+  addIncomeAmount() {
     const amount = faker.number.int({ min: 1, max: 1000 });
     const text = faker.commerce.productName();
     return this.addTransaction(text, amount.toString());

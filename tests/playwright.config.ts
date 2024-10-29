@@ -21,6 +21,20 @@ const config: PlaywrightTestConfig = {
         channel: 'chrome',
       },
     },
+    {
+      name: 'firefox',
+      use: {
+        ...devices['Desktop Firefox'],
+        channel: 'firefox',
+      },
+    },
+    {
+      name: 'webkit',
+      use: {
+        ...devices['Desktop Safari'],
+        channel: 'webkit',
+      },
+    },  
   ],
 };
 
