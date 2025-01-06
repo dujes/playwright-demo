@@ -14,40 +14,32 @@ jobs:
         shard: [1, 2, 3, 4]
 
     steps:
-      # Checkout the code
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      # Set up Node.js (specifying version 20)
       - name: Set Up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
 
-      # Install dependencies
       - name: Install Dependencies
         run: npm install
 
-      # Copy .env.example to .env
       - name: Create .env File
         run: cp .env.example .env
 
-      # Start the application
       - name: Start Application
         run: |
           npm run dev & 
-          sleep 10 # Wait for the application to start
+          sleep 10
         env:
           BASE_URL: ${{ secrets.BASE_URL }}
 
-      # Run tests in headless mode for each shard
       - name: Run Playwright Tests (Shard ${{ matrix.shard }})
-        run: |
-          npx playwright test --shard=${{ matrix.shard }}/4
+        run: npm run test -- --shard=${{ matrix.shard }}/4
         env:
           PLAYWRIGHT_SHARD: ${{ matrix.shard }}
 
-      # Optionally: Upload Playwright test artifacts (screenshots, videos, etc.) if tests fail
       - name: Upload Playwright Artifacts
         if: failure()
         uses: actions/upload-artifact@v3
